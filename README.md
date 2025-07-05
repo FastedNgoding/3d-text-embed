@@ -46,7 +46,7 @@ Include the HTML on your page or serve it standalone, then control behavior usin
 ## ⚠️ Notes
 
 - If you use hex color, avoid the `#` symbol or encode it: `%23ffaa00`
-- If no params are provided, it defaults to: `text=ThreeJS`, `color=#00aaff`, `animation=idle`
+- If no params are provided, it defaults to: `text=Nazri`, `color=#00aaff`, `animation=idle`
 
 ---
 

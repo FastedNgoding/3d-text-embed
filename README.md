@@ -35,7 +35,7 @@ Include the HTML on your page or serve it standalone, then control behavior usin
 
 ```html
 <iframe 
-  src="3dtext.html?text=Welcome&color=white&animation=idle&transparent=true" 
+  src="https://fastedngoding.github.io/3d-text-embed?text=Welcome&color=white&animation=idle&transparent=true" 
   style="width:100%; height:300px; border:none;" 
   allowfullscreen>
 </iframe>
@@ -54,7 +54,7 @@ Include the HTML on your page or serve it standalone, then control behavior usin
 
 Thanks to:
 - God 🙏 — for life and creativity  
-- Myself — because I’m eager to keep learning  
+- Myself — for putting in the hours  
 - ChatGPT — for debugging & guidance  
 - The Three.js team — for the incredible engine  
 - Everyone who uses and shares this — you rock!  

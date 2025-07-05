@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+  <meta charset="UTF-8" />
+  <title>3D Nama Warna</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+  <style>
+    html,
+    body {
+      margin: 0;
+      padding: 0;
+      overflow: hidden;
+      background: transparent;
+      touch-action: pan-x pan-y;
+    }
+
+    canvas {
+      display: block;
+    }
+  </style>
+</head>
+
+<body>
+  <canvas id="c"></canvas>
+
+  <script type="importmap">
+    {
+  "imports": {
+    "three": "https://unpkg.com/three@0.153.0/build/three.module.js",
+    "three/examples/jsm/loaders/FontLoader.js": "https://unpkg.com/three@0.153.0/examples/jsm/loaders/FontLoader.js",
+    "three/examples/jsm/geometries/TextGeometry.js": "https://unpkg.com/three@0.153.0/examples/jsm/geometries/TextGeometry.js"
+  }
+}
+</script>
+
+  <script type="module">
+    import * as THREE from 'three';
+    import {
+      FontLoader
+    } from 'three/examples/jsm/loaders/FontLoader.js';
+    import {
+      TextGeometry
+    } from 'three/examples/jsm/geometries/TextGeometry.js';
+
+    const params = new URLSearchParams(location.search);
+    const fullText = params.get('text') || 'Nazri';
+    const animName = params.get('animation') || 'idle';
+    const transparent = params.get('transparent') === 'true';
+    const colorParam = params.get('color') || '#00aaff';
+
+    const scene = new THREE.Scene();
+    const camera = new THREE.PerspectiveCamera(45, innerWidth / innerHeight, 0.1, 100);
+    camera.position.set(0, 0, 30);
+
+    const renderer = new THREE.WebGLRenderer({
+      canvas: document.getElementById('c'),
+      antialias: true,
+      alpha: transparent
+    });
+    renderer.setClearColor(0x000000, transparent ? 0 : 1);
+    renderer.setSize(innerWidth, innerHeight);
+    window.addEventListener('resize', () => {
+      renderer.setSize(innerWidth, innerHeight);
+      camera.aspect = innerWidth / innerHeight;
+      camera.updateProjectionMatrix();
+    });
+
+    const dirLight = new THREE.DirectionalLight(0xffffff, 1);
+    dirLight.position.set(10, 10, 10);
+    scene.add(dirLight);
+    scene.add(new THREE.AmbientLight(0x404040));
+
+    let textMesh;
+    let loadedFont;
+
+    const loader = new FontLoader();
+    loader.load(
+      'https://unpkg.com/three@0.153.0/examples/fonts/helvetiker_regular.typeface.json',
+      font => {
+        loadedFont = font;
+        createTextMesh(fullText);
+      }
+    );
+
+    function parseColor(input) {
+      if (!input) return 0x00aaff;
+
+      if (/^#?[0-9A-Fa-f]{6}$/.test(input)) {
+        const hex = input.startsWith('#') ? input : '#' + input;
+        return new THREE.Color(hex);
+      }
+
+      try {
+        return new THREE.Color(input);
+      } catch (e) {
+        return new THREE.Color(0x00aaff);
+      }
+    }
+
+    function createTextMesh(text) {
+      if (textMesh) {
+        scene.remove(textMesh);
+        textMesh.geometry.dispose();
+        textMesh.material.dispose();
+      }
+
+      const geo = new TextGeometry(text, {
+        font: loadedFont,
+        size: 4,
+        height: 1,
+        curveSegments: 12,
+        bevelEnabled: true,
+        bevelThickness: 0.1,
+        bevelSize: 0.1
+      });
+      geo.center();
+
+      const mat = new THREE.MeshPhongMaterial({
+        color: parseColor(colorParam)
+      });
+      textMesh = new THREE.Mesh(geo, mat);
+      scene.add(textMesh);
+    }
+
+    let isDragging = false,
+      prevX = 0,
+      rotateY = 0;
+
+    renderer.domElement.addEventListener('mousedown', e => {
+      isDragging = true;
+      prevX = e.clientX;
+    });
+    renderer.domElement.addEventListener('touchstart', e => {
+      isDragging = true;
+      prevX = e.touches[0].clientX;
+    });
+
+    window.addEventListener('mousemove', e => {
+      if (!isDragging || !textMesh) return;
+      const dx = e.clientX - prevX;
+      prevX = e.clientX;
+      rotateY += dx * 0.01;
+      rotateY = THREE.MathUtils.clamp(rotateY, -Math.PI / 7, Math.PI / 7);
+    });
+    window.addEventListener('touchmove', e => {
+      if (!isDragging || !textMesh) return;
+      const dx = e.touches[0].clientX - prevX;
+      prevX = e.touches[0].clientX;
+      rotateY += dx * 0.01;
+      rotateY = THREE.MathUtils.clamp(rotateY, -Math.PI / 7, Math.PI / 7);
+    });
+    window.addEventListener('mouseup', () => isDragging = false);
+    window.addEventListener('touchend', () => isDragging = false);
+
+    document.addEventListener("gesturestart", e => e.preventDefault());
+    document.addEventListener("gesturechange", e => e.preventDefault());
+    document.addEventListener("gestureend", e => e.preventDefault());
+    window.addEventListener("wheel", e => {
+      if (e.ctrlKey) e.preventDefault();
+    }, {
+      passive: false
+    });
+
+    const clock = new THREE.Clock();
+
+    function animate() {
+      requestAnimationFrame(animate);
+      const t = clock.getElapsedTime();
+
+      if (textMesh) {
+        switch (animName) {
+          case 'rotate':
+            textMesh.rotation.y = t * 0.5;
+            break;
+          case 'bounce':
+            textMesh.position.y = Math.sin(t * 2) * 0.5;
+            textMesh.rotation.y = rotateY;
+            break;
+          case 'idle':
+            textMesh.rotation.y = 0.25 * Math.sin(t * 1.5) + rotateY;
+            break;
+          case 'none':
+          default:
+            textMesh.rotation.y = rotateY;
+            break;
+        }
+      }
+
+      renderer.render(scene, camera);
+    }
+    animate();
+  </script>
+</body>
+
+</html>

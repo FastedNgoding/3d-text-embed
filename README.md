@@ -35,7 +35,7 @@ Include the HTML on your page or serve it standalone, then control behavior usin
 
 ```html
 <iframe 
-  src="https://fastedngoding.github.io/3d-text-embed?text=Welcome&color=white&animation=idle&transparent=true" 
+  src="https://fastedngoding.github.io/3d-text-embed/src/models.html?text=Welcome&color=white&animation=idle&transparent=true" 
   style="width:100%; height:300px; border:none;" 
   allowfullscreen>
 </iframe>

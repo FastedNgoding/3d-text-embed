@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>3D Text Embed – Docs</title>
+  <style>
+    body { font-family: system-ui, sans-serif; padding: 2rem; max-width: 900px; margin: auto; line-height: 1.6; }
+    table { width: 100%; border-collapse: collapse; margin: 1em 0; }
+    th, td { border: 1px solid #ccc; padding: 0.5em; text-align: left; }
+    pre { background: #f5f5f5; padding: 1em; overflow-x: auto; }
+    .lang-switch { margin-bottom: 2em; }
+    .indo { display: none; }
+    h1, h2 { color: #00aaff; }
+    a { color: #0077cc; text-decoration: none; }
+    a:hover { text-decoration: underline; }
+  </style>
+</head>
+<body>
+
+<div class="lang-switch">
+  <button onclick="switchLang('en')">English</button>
+  <button onclick="switchLang('id')">Bahasa Indonesia</button>
+</div>
+
+<div class="en">
+  <h1>3D Text Embed – Documentation</h1>
+  <p>
+    A simple embeddable 3D text viewer built with Three.js.<br>
+    View on GitHub → <a href="https://github.com/FastedNgoding/3d-text-embed" target="_blank">FastedNgoding/3d-text-embed</a>
+  </p>
+
+  <h2>What Is This?</h2>
+  <p>
+    This tool lets you display 3D text directly in the browser with lighting, bevel, animation, and customizable style using just URL parameters.
+  </p>
+
+  <h2>Parameters</h2>
+  <table>
+    <tr><th>Parameter</th><th>Type</th><th>Description</th><th>Example</th></tr>
+    <tr><td>text</td><td>string</td><td>The 3D text to show</td><td>?text=Hello</td></tr>
+    <tr><td>color</td><td>string</td><td>Hex (no #) or name</td><td>?color=11eee7</td></tr>
+    <tr><td>animation</td><td>string</td><td>idle, rotate, bounce, none</td><td>?animation=rotate</td></tr>
+    <tr><td>transparent</td><td>boolean</td><td>Transparent background</td><td>?transparent=true</td></tr>
+  </table>
+
+  <h2>How to Embed (iframe)</h2>
+  <pre><code>&lt;iframe 
+  src="yoururl.html?text=Welcome&amp;color=red&amp;animation=idle&amp;transparent=true"
+  style="width:100%; height:300px; border:none;" 
+  allowfullscreen&gt;&lt;/iframe&gt;
+</code></pre>
+
+  <h2>Color Tips</h2>
+  <ul>
+    <li>Use simple names like <code>white</code>, <code>red</code>, etc.</li>
+    <li>Or use hex values like <code>11eee7</code> (or <code>%2311eee7</code>)</li>
+    <li>Don’t use <code>#</code> directly in URLs — encode it or omit it</li>
+  </ul>
+
+  <h2>Thank You</h2>
+  <ul>
+    <li><strong>God</strong> — for creativity and everything good 🙏</li>
+    <li><strong>Myself</strong> — because I’m eager to keep learning</li>
+    <li><strong>ChatGPT</strong> — for coding and logic support</li>
+    <li><strong>Three.js</strong> — for the amazing 3D engine</li>
+    <li><strong>You</strong> — for using and sharing this ❤️</li>
+  </ul>
+</div>
+
+<div class="indo">
+  <h1>Dokumentasi 3D Text Embed</h1>
+  <p>
+    Penampil teks 3D ringan dan bisa disematkan, dibangun dengan Three.js.<br>
+    Lihat di GitHub → <a href="https://github.com/FastedNgoding/3d-text-embed" target="_blank">FastedNgoding/3d-text-embed</a>
+  </p>
+
+  <h2>Apa Ini?</h2>
+  <p>
+    Tool ini memungkinkan kamu menampilkan teks 3D langsung di browser, lengkap dengan pencahayaan, bevel, animasi, dan pengaturan lewat URL.
+  </p>
+
+  <h2>Parameter URL</h2>
+  <table>
+    <tr><th>Parameter</th><th>Tipe</th><th>Deskripsi</th><th>Contoh</th></tr>
+    <tr><td>text</td><td>string</td><td>Teks yang ditampilkan</td><td>?text=Halo</td></tr>
+    <tr><td>color</td><td>string</td><td>Nama warna atau hex</td><td>?color=11eee7</td></tr>
+    <tr><td>animation</td><td>string</td><td>idle, rotate, bounce, none</td><td>?animation=rotate</td></tr>
+    <tr><td>transparent</td><td>boolean</td><td>Background transparan</td><td>?transparent=true</td></tr>
+  </table>
+
+  <h2>Contoh Embed (iframe)</h2>
+  <pre><code>&lt;iframe 
+  src="namafile.html?text=Selamat+Datang&amp;color=11eee7&amp;animation=rotate" 
+  style="width:100%; height:300px; border:none;" 
+  allowfullscreen&gt;&lt;/iframe&gt;
+</code></pre>
+
+  <h2>Tips Warna</h2>
+  <ul>
+    <li>Gunakan nama warna seperti <code>white</code>, <code>red</code></li>
+    <li>Atau hex: <code>11eee7</code> atau <code>%2311eee7</code></li>
+    <li>Jangan pakai <code>#</code> langsung di URL — encode atau hilangkan</li>
+  </ul>
+
+  <h2>Terima Kasih</h2>
+  <ul>
+    <li><strong>Tuhan</strong> — atas kreativitas dan hidup 🙏</li>
+    <li><strong>Diriku sendiri</strong> — karena mau terus belajar</li>
+    <li><strong>ChatGPT</strong> — bantu coding dan logika</li>
+    <li><strong>Three.js</strong> — untuk engine 3D yang keren</li>
+    <li><strong>Kamu</strong> — karena udah pake, dukung, dan nyebarin ❤️</li>
+  </ul>
+</div>
+
+<script>
+  function switchLang(lang) {
+    document.querySelector('.en').style.display = lang === 'en' ? 'block' : 'none';
+    document.querySelector('.indo').style.display = lang === 'id' ? 'block' : 'none';
+  }
+</script>
+
+</body>
+</html>
